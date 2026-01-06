@@ -37,7 +37,7 @@ class DatabaseService {
 
     constructor() {
         if (!isSupabaseConfigured) {
-            console.warn("Supabase keys are placeholders. Using Mock Data Fallback.");
+            // Silenced warning as requested. Fallback to mock is handled internally.
             this.useMock = true;
             this.mockTickets.forEach(t => {
                 this.mockTicketHistory.push({
@@ -125,7 +125,6 @@ class DatabaseService {
             if (error || !profile) return null;
             return mapProfileToUser(profile);
         } catch (e) {
-            console.warn("Supabase connection failed, falling back to mock.", e);
             this.useMock = true;
             return this.getCurrentUser();
         }
